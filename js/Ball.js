@@ -19,18 +19,23 @@ Ball.prototype.draw = function () {
 
 Ball.prototype.colliding = function () {
     for (let i = 0; i < rectangles.length; i++) {
-        let distX = Math.abs(this.spawnX - rectangles[i].x - rectangles[i].width/2);
-        let distY = Math.abs(this.spawnY - rectangles[i].y - rectangles[i].height/2);
+        const halfWidth = rectangles[i].width/2;
+        const halfHeight = rectangles[i].height/2
+        let distX = Math.sqrt(Math.pow((this.spawnX - rectangles[i].x - halfWidth), 2));
+        let distY = Math.sqrt(Math.pow((this.spawnY - rectangles[i].y - halfHeight), 2));
         if (distX <= (rectangles[i].width / 2 + this.radius) && distY <= (rectangles[i].height / 2 + this.radius)) {
-            if (rectangles[i].height > rectangles[i].width) {
+            const rcX = (rectangles[i].x + halfWidth);
+            const rcY = (rectangles[i].y + halfHeight);
+            if (rcX >= this.spawnX && Math.abs(this.spawnY - rcY) < halfHeight || rcX <= this.spawnX && Math.abs(this.spawnY - rcY) < halfHeight) {
                 this.dx = -this.dx;
-            }
-
-            if (rectangles[i].width > rectangles[i].height) {
+            } else if (rcY >= this.spawnY && Math.abs(this.spawnX - rcX) < halfWidth || rcY <= this.spawnY && Math.abs(this.spawnX - rcX) < halfWidth) {
+                this.dy = -this.dy;
+            } else {
+                this.dx = -this.dx;
                 this.dy = -this.dy;
             }
-        }
 
+        }
         this.spawnX += this.dx;
         this.spawnY += this.dy;
     }

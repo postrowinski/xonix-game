@@ -1,13 +1,13 @@
 //Board const
 const c = document.querySelector('#game-board');
 const ctx = c.getContext('2d');
-const boardWidth = c.width = window.innerWidth - 300;
-const boardHeight = c.height = window.innerHeight - 300;
+const boardWidth = c.width = 1200;
+const boardHeight = c.height = 600;
 const spawnRadius =  400;
 const borderWidth = 30;
 //Ball object
 let balls = {
-    quantity: 14,
+    quantity: 11,
     every: [],
     spawnEdgeX: boardWidth / 2 - spawnRadius / 2,
     spawnEdgeY: boardHeight / 2 - spawnRadius / 2,
@@ -20,9 +20,11 @@ const borderTop = new ConstRectangle(0, 0, boardWidth, borderWidth, 'blue');
 const borderBottom = new ConstRectangle(0, boardHeight - borderWidth, boardWidth, borderWidth, 'blue');
 const borderLeft = new ConstRectangle(0, borderWidth, borderWidth, boardHeight - 2 * borderWidth, 'blue');
 const borderRight = new ConstRectangle(boardWidth - borderWidth, borderWidth, borderWidth, boardHeight - 2 * borderWidth, 'blue');
-const test = new ConstRectangle(borderWidth, borderWidth, 170, 150, 'red');
+const test = new ConstRectangle(100, 100, 170, 150, 'red');
+const triangle = new ConstRectangle(900, 350, 170, 150, 'red');
 
-borders.push(borderTop, borderBottom, borderLeft, borderRight, test);
+borders.push(borderTop, borderBottom, borderLeft, borderRight, test, triangle);
+
 let rectangles = [...borders];
 
 function direction() {
