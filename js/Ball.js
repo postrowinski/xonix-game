@@ -17,12 +17,14 @@ Ball.prototype.draw = function () {
 
 };
 
-Ball.prototype.colliding = function () {
+Ball.prototype.rectColliding = function () {
     for (let i = 0; i < rectangles.length; i++) {
         const halfWidth = rectangles[i].width/2;
-        const halfHeight = rectangles[i].height/2
+        const halfHeight = rectangles[i].height/2;
+
         let distX = Math.sqrt(Math.pow((this.spawnX - rectangles[i].x - halfWidth), 2));
         let distY = Math.sqrt(Math.pow((this.spawnY - rectangles[i].y - halfHeight), 2));
+
         if (distX <= (rectangles[i].width / 2 + this.radius) && distY <= (rectangles[i].height / 2 + this.radius)) {
             const rcX = (rectangles[i].x + halfWidth);
             const rcY = (rectangles[i].y + halfHeight);
@@ -41,8 +43,22 @@ Ball.prototype.colliding = function () {
     }
 };
 
+Ball.prototype.playerColliding = function () {
+    let playerCenter = player.width / 2;
+    let distX = Math.sqrt(Math.pow(this.spawnX - player.x - playerCenter ,2));
+    let distY = Math.sqrt(Math.pow(this.spawnY - player.y - playerCenter ,2));
+
+    if (distX <= playerCenter + this.radius && distY <= playerCenter + this.radius) {
+        return true;
+    }
+};
+
 Ball.prototype.update = function () {
     this.draw();
-    this.colliding();
+    this.rectColliding();
+    if (this.playerColliding) {
+        return;
+    }
 };
+
 

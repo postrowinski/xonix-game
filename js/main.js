@@ -11,8 +11,16 @@ let balls = {
     every: [],
     spawnEdgeX: boardWidth / 2 - spawnRadius / 2,
     spawnEdgeY: boardHeight / 2 - spawnRadius / 2,
-    speed: 1
+    speed: 0.6
 };
+
+//Player object
+let user = {
+    x: boardWidth / 2 - 10,
+    y: boardHeight - 20,
+    width: 20,
+    height: 20
+}
 
 const borders = [];
 
@@ -42,12 +50,15 @@ for (let i = 0; i < balls.quantity; i++) {
     balls.every.push(drawBall);
 }
 
+let player = new Player(user.x, user.y, user.width, user.height);
 
-
-
-function ballAnimate() {
+function gameAnimate() {
+    requestAnimationFrame(gameAnimate);
     ctx.clearRect(0, 0, boardWidth, boardHeight);
     borders.forEach(border => border.draw());
     balls.every.forEach(ball => ball.update());
+    player.draw();
 }
-setInterval(ballAnimate, 1000/30);
+
+gameAnimate();
+player.move();

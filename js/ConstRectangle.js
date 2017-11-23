@@ -1,4 +1,4 @@
-const ConstRectangle = function (x, y, width, height, color) {
+function ConstRectangle (x, y, width, height, color) {
     this.x = x;
     this.y = y;
     this.width = width;
